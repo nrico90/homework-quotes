@@ -1,0 +1,16 @@
+.liked {
+  color: green;
+  font-weight: bold;
+}
+.not-liked {
+  color: red;
+  text-decoration: line-through;
+}
+
+.not-liked:before {
+  content: "💀";
+}
+
+.liked:before {
+  content: "🙃";
+}

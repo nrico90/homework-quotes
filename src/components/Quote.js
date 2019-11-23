@@ -1,30 +1,33 @@
 import React, { Component } from "react";
+import "./button.css";
 // import spinner from "../spinner.jpg";
 
 class Quote extends Component {
-  // state = {
-  //   post: null,
-  //   quoteText: " ",
-  //   quoteAuthor: 'by " "'
-  // };
+  state = {
+    iLike: 0
+  };
 
-  //   componentDidMount() {
-  //     fetch("")
-  //       .then(response => response.json())
-  //       .then(json => {
-  //         this.setState({ post: json });
-  //       });
-  //     console.log(this.post);
-  //   }
+  iLike = () => {
+    this.setState({
+      iLike: "liked"
+    });
+  };
+
+  notLike = () => {
+    this.setState({
+      iLike: "not-liked"
+    });
+  };
 
   render() {
-    // if (this.props.quote === null) {
-    //   return <img src={spinner} alt={"spinner"} />;
-    // }
     return (
       <div>
-        <blockquote>TEXT: {this.props.quoteText} </blockquote>
+        <blockquote className={this.state.iLike}>
+          TEXT: {this.props.quoteText}{" "}
+        </blockquote>
         <p>AUTHOR: by: {this.props.quoteAuthor}</p>
+        <button onClick={this.iLike}> :) </button>
+        <button onClick={this.notLike}> :( </button>
       </div>
     );
   }
