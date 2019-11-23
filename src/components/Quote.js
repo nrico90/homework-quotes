@@ -23,8 +23,8 @@ class Quote extends Component {
     // }
     return (
       <div>
-        TEXT: {this.props.quoteText} <br />
-        AUTHOR:by: {this.props.quoteAuthor}
+        <blockquote>TEXT: {this.props.quoteText} </blockquote>
+        <p>AUTHOR: by: {this.props.quoteAuthor}</p>
       </div>
     );
   }
