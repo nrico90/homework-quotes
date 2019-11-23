@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import Quote from "./Quote";
+import spinner from "../spinner.jpg";
 
 class QuoteSearcher extends Component {
   state = {
@@ -23,9 +25,21 @@ class QuoteSearcher extends Component {
       }
     ]
   };
-
   render() {
-    return <div></div>;
+    return (
+      <div className="quotes">
+        <h1>QUOTES</h1>
+        {this.state.quotes.map(quote => {
+          return (
+            <Quote
+              key={quote._id}
+              quoteText={quote.quoteText}
+              quoteAuthor={quote.quoteAuthor}
+            />
+          );
+        })}
+      </div>
+    );
   }
 }
 
