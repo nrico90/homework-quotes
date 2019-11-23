@@ -24,12 +24,13 @@ class QuoteSearcher extends Component {
       //   quoteAuthor: "J. Willard Marriott"
       // }
     ],
+    keyword: "",
     fetch: false
   };
 
-  componentDidMount() {
+  componentDidMount(keyword) {
     this.setState({ fetch: true });
-    fetch("https://quote-garden.herokuapp.com/quotes/search/tree")
+    fetch(`https://quote-garden.herokuapp.com/quotes/search/${keyword}`)
       .then(response => response.json())
       .then(data => {
         this.setState({ quotes: data.results, fetch: false });
@@ -37,25 +38,58 @@ class QuoteSearcher extends Component {
       .catch(console.error);
   }
 
+  handleChange(event) {
+    this.setState({
+      ...this.state,
+      keyword: event.target.value
+    });
+  }
+
   render() {
     if (this.state.fetch === true) {
       return <img src={spinner} alt={"spinner"} />;
+    } else {
+      return (
+        <div className="quotes">
+          <h1>QUOTES</h1>
+
+          <p>Find your quote: </p>
+          <input
+            value={this.state.keyword}
+            className="loveQuotes"
+            onChange={event => {
+              this.handleChange(event);
+            }}
+            placeholder="Enter a keyword"
+          ></input>
+
+          <button
+            onClick={() => {
+              this.componentDidMount(this.state.keyword);
+            }}
+          >
+            Search
+          </button>
+
+          <h3>
+            {this.state.quotes.length > 0
+              ? "Great, I have: " + this.state.quotes.length + " quotes"
+              : "Nothing to see here"}
+          </h3>
+
+          {this.state.quotes.map(quote => {
+            return (
+              <Quote
+                // id={quote._id}
+                key={quote._id}
+                quoteText={quote.quoteText}
+                quoteAuthor={quote.quoteAuthor}
+              />
+            );
+          })}
+        </div>
+      );
     }
-    return (
-      <div className="quotes">
-        <h1>QUOTES</h1>
-        {this.state.quotes.map(quote => {
-          return (
-            <Quote
-              // id={quote._id}
-              key={quote._id}
-              quoteText={quote.quoteText}
-              quoteAuthor={quote.quoteAuthor}
-            />
-          );
-        })}
-      </div>
-    );
   }
 }
 
